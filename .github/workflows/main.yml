@@ -18,4 +18,5 @@ rules:
     pattern: print($X)
     message: Debug print statement found
     severity: INFO
-    languages
+    languages:
+      - python
