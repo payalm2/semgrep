@@ -1,22 +1,19 @@
-rules:
-  - id: python-hardcoded-password
-    patterns:
-      - pattern: $VAR = "password"
-    message: Hardcoded password detected
-    severity: WARNING
-    languages:
-      - python
+name: Semgrep Scan
 
-  - id: python-eval-usage
-    pattern: eval($EXPR)
-    message: Use of eval() is dangerous
-    severity: ERROR
-    languages:
-      - python
+on:
+  push:
+    branches: [ main ]
+  pull_request:
 
-  - id: python-print-debug
-    pattern: print($X)
-    message: Debug print statement found
-    severity: INFO
-    languages:
-      - python
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: semgrep-test-rules.yml
